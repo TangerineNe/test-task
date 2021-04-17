@@ -1,0 +1,57 @@
+:root {
+  --blue:#15a4fa;
+  --light-gray: #58769b;
+  --normal-gray: #253e5d;
+  --dark-gray: #21344c;
+}
+tbody a{
+  display: table-row;
+}
+body{
+  background: var(--dark-gray);
+  color: var(--light-gray);
+}
+table{
+  width: 100%;
+  border: 1px solid var(--light-gray);
+  border-collapse: collapse;
+}
+th{
+  height: 30px;
+  background-color: var(--normal-gray);
+}
+
+th, td{
+  border: 1px solid var(--light-gray);
+  padding: 10px;
+}
+tr{
+  background-color: var(--dark-gray);
+}
+#orders tr:hover{
+  background: var(--normal-gray);
+  cursor: pointer;
+}
+.sort_button{
+  position: relative;
+  width: 0;
+  height: 0;
+  border: 7px solid transparent;
+  display: inline-block;
+  cursor: pointer;
+  margin: 2px;
+}
+.sort_button.down{
+  top: 10px;
+  right: 9px;
+  position: relative;
+  border-bottom: 0px solid transparent;
+  border-top: 10px solid var(--blue);
+
+}
+.sort_button.up{
+  bottom: 4px;
+  left: 9px;
+  border-top: 0px solid transparent;
+  border-bottom: 10px solid var(--blue);
+}
