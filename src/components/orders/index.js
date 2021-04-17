@@ -24,7 +24,7 @@ const Orders = ({ orders }) => {
 		setSortColumn(col + direction);
 	}
 	return (
-		<table id = "#orders">
+		<table id = "orders">
 			<thead>
 				<tr>
 					<th>

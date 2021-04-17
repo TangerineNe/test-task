@@ -28,9 +28,11 @@ th, td{
 tr{
   background-color: var(--dark-gray);
 }
-#orders tr:hover{
-  background: var(--normal-gray);
+#orders tbody tr{
   cursor: pointer;
+}
+#orders tbody tr:hover{
+  background: var(--normal-gray);
 }
 .sort_button{
   position: relative;

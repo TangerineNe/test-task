@@ -62,11 +62,7 @@ const Dashboard = ({ orders }) => {
 			<tbody>
 				<tr>
 					<td>
-						{keysAggregation[0]
-							? `${keysAggregation[0]} meals - ${
-									aggregation.meals[keysAggregation[0]]
-							  } orders`
-							: ``}
+						{keysAggregation[0] ? `${keysAggregation[0]} meals - ${aggregation.meals[keysAggregation[0]]} orders`: ``}
 					</td>
 					<td>{aggregation.unpaid}</td>
 					<td>{aggregation.totalNumber}</td>
