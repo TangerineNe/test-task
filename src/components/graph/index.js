@@ -3,7 +3,6 @@ import "./style.css";
 
 
 const Graph = ({ days }) => {
-  let points = [];
   let [dateInPoint, setDateInPoint] = useState(null);
 	let canvasRef = createRef();
   function calculatePoints(){
@@ -53,14 +52,14 @@ const Graph = ({ days }) => {
   }
   function drawPoint(event){
     const ctx = canvasRef.current.getContext("2d");
-    drawGraph(points);
+    drawGraph(canvasRef.current.points);
     let x = event.nativeEvent.offsetX;
-    let optimalPoint = points[0];
+    let optimalPoint = canvasRef.current.points[0];
     let minDistance = Infinity;
-    for(let i = 0; i < points.length; i++){
-      if(Math.abs(points[i].x - x) < minDistance){
-        minDistance = Math.abs(points[i].x - x);
-        optimalPoint = points[i];
+    for(let i = 0; i < canvasRef.current.points.length; i++){
+      if(Math.abs(canvasRef.current.points[i].x - x) < minDistance){
+        minDistance = Math.abs(canvasRef.current.points[i].x - x);
+        optimalPoint = canvasRef.current.points[i];
       }
     }
     x = optimalPoint?.x;
@@ -79,13 +78,13 @@ const Graph = ({ days }) => {
 
   }
   function handleMouseLeave(){
-    drawGraph(points);
+    drawGraph(canvasRef.current.points);
     setDateInPoint(null);
   }
 	useEffect(() => {
-    points = calculatePoints();
-    drawGraph(points);
-	}, [points]);
+    canvasRef.current.points = calculatePoints();
+    drawGraph(canvasRef.current.points);
+	});
 
 	return (
 		<table>

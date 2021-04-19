@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import "./style.css";
 const SortButton = ({onSort}) => {
 	return (
