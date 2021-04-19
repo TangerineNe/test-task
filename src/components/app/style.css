@@ -1,0 +1,15 @@
+:root {
+  --light-blue:#48b9ff;
+  --blue:#15a4fa;
+  --light-gray: #7896bb;
+  --normal-gray: #253e5d;
+  --dark-gray: #21344c;
+}
+body{
+  background: var(--dark-gray);
+  color: var(--light-gray);
+}
+a {
+  text-decoration: none;
+  color: var(--light-gray);
+}

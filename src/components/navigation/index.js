@@ -3,16 +3,16 @@ import dashboardPng from "./dashboard.png";
 import orderPng from "./order.png";
 import { Link, useParams } from "react-router-dom";
 const Navigation = () => {
-	let { btn } = useParams();
+	let btn = useParams().btn || "orders";
 	return (
 		<nav id="navigation">
-			<Link to="/order">
+			<Link to="/orders">
 				<div
 					style={{
 						backgroundImage: `url(${orderPng})`,
 						backgroundSize: "33%",
 					}}
-					className={btn === "order" ? "active" : ""}
+					className={btn === "orders" ? "active" : ""}
 				>
 					<span>Order</span>
 				</div>

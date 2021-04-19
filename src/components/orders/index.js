@@ -1,42 +1,39 @@
 import "./style.css";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { SortButton } from "../sortButton";
 const Orders = ({ orders }) => {
 	let history = useHistory();
-	let setSortColumn = useState("ID")[1];
-	function handleSort(col, direction) {
-		if (col === "Date" || col === "Start date") {
-			orders.sort((a, b) => direction * (new Date(a[col]) - new Date(b[col])));
-		} else if (col === "Meals") {
-			orders.sort((a, b) => direction * (parseInt(a[col]) - parseInt(b[col])));
-		} else if (col === "Invoice") {
-			console.log("teest");
+	let setSortParams = useState({ column: "ID", direction: 1 })[1];
+	function handleSort(column, direction) {
+		if (column === "Date" || column === "Start date") {
 			orders.sort((a, b) => {
-				if (a[col] === b[col]) {
+				return direction * (new Date(a[column]) - new Date(b[column]));
+			});
+		} else if (column === "Meals") {
+			orders.sort((a, b) => {
+				return direction * (parseInt(a[column]) - parseInt(b[column]));
+			});
+		} else if (column === "Invoice") {
+			orders.sort((a, b) => {
+				if (a[column] === b[column]) {
 					return 0;
 				}
-				if (a[col] === "False") {
+				if (a[column] === "False") {
 					return direction;
 				}
 				return -1 * direction;
 			});
 		}
-		setSortColumn(col + direction);
+		setSortParams({ column, direction });
 	}
 	return (
-		<table id = "orders">
+		<table id="orders">
 			<thead>
 				<tr>
 					<th>
 						<span>Date</span>
-						<div
-							onClick={() => handleSort("Date", -1)}
-							className="sort_button up"
-						></div>
-						<div
-							onClick={() => handleSort("Date", 1)}
-							className="sort_button down"
-						></div>
+						<SortButton onSort = {(direction)=>handleSort("Date", direction)}/>
 					</th>
 					<th>
 						<span>Name</span>
@@ -49,44 +46,28 @@ const Orders = ({ orders }) => {
 					</th>
 					<th>
 						<span>Start date</span>
-						<div
-							onClick={() => handleSort("Start date", -1)}
-							className="sort_button up"
-						></div>
-						<div
-							onClick={() => handleSort("Start date", 1)}
-							className="sort_button down"
-						></div>
+						<SortButton onSort = {(direction)=>handleSort("Start date", direction)}/>
 					</th>
 					<th>
 						<span>Meals</span>
-						<div
-							onClick={() => handleSort("Meals", -1)}
-							className="sort_button up"
-						></div>
-						<div
-							onClick={() => handleSort("Meals", 1)}
-							className="sort_button down"
-						></div>
+						<SortButton onSort = {(direction)=>handleSort("Meals", direction)}/>
 					</th>
 					<th>
 						<span>Invoice status</span>
-						<div
-							onClick={() => handleSort("Invoice", -1)}
-							className="sort_button up"
-						></div>
-						<div
-							onClick={() => handleSort("Invoice", 1)}
-							className="sort_button down"
-						></div>
+						<SortButton onSort = {(direction)=>handleSort("Invoice", direction)}/>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
-				{orders.map((order, i) => {
+				{!orders && (
+					<tr>
+						<td colSpan="7">Loading...</td>
+					</tr>
+				)}
+				{orders?.map((order, i) => {
 					return (
 						<tr
-							onClick={() => history.push(`/order/${order.ID}`)}
+							onClick={() => history.push(`/orders/${order.ID}`)}
 							key={order.ID}
 						>
 							<td>{order["Date"]}</td>

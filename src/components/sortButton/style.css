@@ -1,0 +1,32 @@
+.sort_button{
+  position: relative;
+  width: 0;
+  height: 0;
+  border: 7px solid transparent;
+  display: inline-block;
+  cursor: pointer;
+  margin: 2px;
+}
+
+.sort_button.down{
+  top: 10px;
+  right: 9px;
+  position: relative;
+  border-bottom: 0px solid transparent;
+  border-top: 10px solid var(--blue);
+}
+.sort_button.down:hover{
+  border-top: 10px solid var(--light-blue);
+}
+.sort_button.up{
+  bottom: 4px;
+  left: 9px;
+  border-top: 0px solid transparent;
+  border-bottom: 10px solid var(--blue);
+}
+.sort_button.up:hover{
+  border-bottom: 10px solid var(--light-blue);
+}
+.main_sort_button{
+  display: inline-block;
+}
