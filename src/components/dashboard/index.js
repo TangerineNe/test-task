@@ -46,7 +46,7 @@ const Dashboard = ({ aggregation }) => {
 						</td>
 						<td>{aggregation.unpaid}</td>
 						<td>{aggregation.totalNumber}</td>
-						<td>{aggregation.totalAsDay[formatDate]}</td>
+						<td>{aggregation.totalAsDay[formatDate] || 0}</td>
 					</tr>
 					{keysAggregation.slice(1).map((val, i) => {
 						return (

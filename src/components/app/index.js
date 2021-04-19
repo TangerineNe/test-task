@@ -25,7 +25,7 @@ const App = () => {
 					.on("error", (error) => console.error(error))
 					.on("data", (row) => tempOrders.push(row))
 					.on("end", () => {
-						aggregation.totalNumber = orders?.length || 0;
+						aggregation.totalNumber = tempOrders?.length || 0;
 						for (let i = 0; i < tempOrders?.length; i++) {
 							let order = tempOrders[i];
 							if (!!aggregation.meals[order.Meals]) {
