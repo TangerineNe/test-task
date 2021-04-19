@@ -29,11 +29,12 @@ const Graph = ({ days }) => {
     return points;
   }
   function drawGraph(points){
+    console.log("drawGraph");
     const ctx = canvasRef.current.getContext("2d");
-    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     ctx.lineWidth = 2;
     ctx.strokeStyle = "#15a4fa";
     ctx.fillStyle = "#15a4fa";
+    ctx.lineCap = "round";
     ctx.beginPath();
     ctx.moveTo(0, points[0]?.y);
     for(let i = 0; i < points.length; i++){
@@ -47,12 +48,9 @@ const Graph = ({ days }) => {
       ctx.arc(points[i]?.x, points[i]?.y, 3, 0, Math.PI * 2);
       ctx.closePath();
       ctx.fill();
-      
     }
   }
   function drawPoint(event){
-    const ctx = canvasRef.current.getContext("2d");
-    drawGraph(canvasRef.current.points);
     let x = event.nativeEvent.offsetX;
     let optimalPoint = canvasRef.current.points[0];
     let minDistance = Infinity;
@@ -62,30 +60,33 @@ const Graph = ({ days }) => {
         optimalPoint = canvasRef.current.points[i];
       }
     }
-    x = optimalPoint?.x;
-    let y = optimalPoint?.y;
-    ctx.beginPath();
-    ctx.arc(x, y, 5, 0, Math.PI * 2);
-    ctx.closePath();
-    ctx.fill();
-    ctx.fillStyle = "#7896bb";
-    ctx.font = "20px serif";
     let date = optimalPoint?.date;
     let formatDate = `${date?.getMonth()+1}/${date?.getDate()}/${date?.getFullYear()}`;
-   // dateInPoint = formatDate;
-    setDateInPoint(formatDate)
-    //ctx.fillText(formatDate, 710, 40);
-
+    if(formatDate != dateInPoint){
+      const ctx = canvasRef.current.getContext("2d");
+      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+      drawGraph(canvasRef.current.points);
+      x = optimalPoint?.x;
+      let y = optimalPoint?.y;
+      ctx.beginPath();
+      ctx.arc(x, y, 5, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.fill();
+      setDateInPoint(formatDate);
+    }
   }
   function handleMouseLeave(){
+    const ctx = canvasRef.current.getContext("2d");
+    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     drawGraph(canvasRef.current.points);
     setDateInPoint(null);
   }
 	useEffect(() => {
+    console.log("useEffect");
     canvasRef.current.points = calculatePoints();
     drawGraph(canvasRef.current.points);
 	});
-
+  console.log("render");
 	return (
 		<table>
 			<thead>
