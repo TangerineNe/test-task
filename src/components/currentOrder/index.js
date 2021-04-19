@@ -17,7 +17,7 @@ const CurrentOrder = ({ orders }) => {
 						<li>Email: {order["Email"]}</li>
 						<li>Start date: {order["Start date"]}</li>
 						<li>Meals: {order["Meals"]}</li>
-						<li>Invoice: {order["Invoice"]}</li>
+						<li>Invoice: {order["Invoice"] === "True" ? "paid" : "unpaid"}</li>
 					</Fragment>
 				)}
 			</ul>
