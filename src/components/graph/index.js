@@ -29,8 +29,8 @@ const Graph = ({ days }) => {
     return points;
   }
   function drawGraph(points){
-    console.log("drawGraph");
     const ctx = canvasRef.current.getContext("2d");
+    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     ctx.lineWidth = 2;
     ctx.strokeStyle = "#15a4fa";
     ctx.fillStyle = "#15a4fa";
@@ -63,11 +63,10 @@ const Graph = ({ days }) => {
     let date = optimalPoint?.date;
     let formatDate = `${date?.getMonth()+1}/${date?.getDate()}/${date?.getFullYear()}`;
     if(formatDate != dateInPoint){
-      const ctx = canvasRef.current.getContext("2d");
-      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
       drawGraph(canvasRef.current.points);
-      x = optimalPoint?.x;
-      let y = optimalPoint?.y;
+      const x = optimalPoint?.x;
+      const y = optimalPoint?.y;
+      const ctx = canvasRef.current.getContext("2d");
       ctx.beginPath();
       ctx.arc(x, y, 5, 0, Math.PI * 2);
       ctx.closePath();
@@ -76,8 +75,6 @@ const Graph = ({ days }) => {
     }
   }
   function handleMouseLeave(){
-    const ctx = canvasRef.current.getContext("2d");
-    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     drawGraph(canvasRef.current.points);
     setDateInPoint(null);
   }
@@ -85,7 +82,7 @@ const Graph = ({ days }) => {
     console.log("useEffect");
     canvasRef.current.points = calculatePoints();
     drawGraph(canvasRef.current.points);
-	});
+	}, [Object.keys(days).join("")]);
   console.log("render");
 	return (
 		<table>
