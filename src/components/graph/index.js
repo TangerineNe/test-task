@@ -22,8 +22,8 @@ const Graph = ({ days }) => {
     for(let i = firstDay; i <= lastDay; i += DAY_MILLISECONDS){
       const date = new Date(i);
       const formatDate = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`
-      let x = ((width - padding)/countDay) * (i-firstDay)/DAY_MILLISECONDS + padding/2;
-      let y = height - ( ((height - padding)/maxCountOrders)*(days[formatDate] || 0) + padding/2 );
+      const x = ((width - padding)/countDay) * (i-firstDay)/DAY_MILLISECONDS + padding/2;
+      const y = height - ( ((height - padding)/maxCountOrders)*(days[formatDate] || 0) + padding/2 );
       points.push({x, y, date});
     }
     return points;
@@ -51,7 +51,7 @@ const Graph = ({ days }) => {
     }
   }
   function drawPoint(event){
-    let x = event.nativeEvent.offsetX;
+    const x = event.nativeEvent.offsetX;
     let optimalPoint = canvasRef.current.points[0];
     let minDistance = Infinity;
     for(let i = 0; i < canvasRef.current.points.length; i++){
@@ -62,7 +62,7 @@ const Graph = ({ days }) => {
     }
     let date = optimalPoint?.date;
     let formatDate = `${date?.getMonth()+1}/${date?.getDate()}/${date?.getFullYear()}`;
-    if(formatDate != dateInPoint){
+    if(formatDate !== dateInPoint){
       drawGraph(canvasRef.current.points);
       const x = optimalPoint?.x;
       const y = optimalPoint?.y;
@@ -78,12 +78,11 @@ const Graph = ({ days }) => {
     drawGraph(canvasRef.current.points);
     setDateInPoint(null);
   }
+  const forUseEffect = Object.keys(days).join("");
 	useEffect(() => {
-    console.log("useEffect");
     canvasRef.current.points = calculatePoints();
     drawGraph(canvasRef.current.points);
-	}, [Object.keys(days).join("")]);
-  console.log("render");
+	}, [forUseEffect]);
 	return (
 		<table>
 			<thead>
@@ -95,7 +94,13 @@ const Graph = ({ days }) => {
 			<tbody>
 				<tr>
 					<td className="for_graph">
-						<canvas onMouseMove = {drawPoint} onMouseLeave = {handleMouseLeave} height = "350" width = {window.innerWidth - 16} ref={canvasRef} />
+						<canvas 
+              onMouseMove = {drawPoint} 
+              onMouseLeave = {handleMouseLeave} 
+              height = "350" 
+              width = {window.innerWidth - 16} 
+              ref={canvasRef}
+            />
 					</td>
 				</tr>
 			</tbody>
